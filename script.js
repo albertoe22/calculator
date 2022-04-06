@@ -17,14 +17,17 @@ function divide(x,y) {
     return x/y;
 }
 
-const ac = document.getElementById("clear");
-ac.addEventListener('click', ()=> clear());
+function divH(x,y) {
+    return parseFloat(x / 100);
+}
+
+
 
 function clear() {
     array.splice(0);
     func='';
     displayValue='';
-    display.textContent='';
+    display.textContent=0;
     totalValue=0;
     holdValue ='';
     holdFunc = '';
@@ -36,8 +39,8 @@ function operate(func, x,y) {
     if (y==='=' || y==='+'|| y==='-'|| y==='*'|| y==='/' || y==='') {
         return operate(func,x,x);
     }
-    x=parseInt(x);
-    y=parseInt(y);
+    x=parseFloat(x);
+    y=parseFloat(y);
     if (func === '+') {
         return add(x,y);
     }
@@ -58,10 +61,33 @@ const display = document.getElementById('display');
 
 buttons.forEach((button)=> {
     button.addEventListener('click', () => {
-        //displayValue = parseInt(button.textContent);
+        //displayValue = parseFloat(button.textContent);
         displayValue += button.textContent;
         display.textContent=displayValue;
     });
+});
+
+const ac = document.getElementById("clear");
+ac.addEventListener('click', ()=> clear());
+
+const changer = document.getElementById('change');
+changer.addEventListener('click' , () => {
+    let value = parseFloat(displayValue);
+    if (value < 0) {
+        displayValue = Math.abs(value);
+        display.textContent= displayValue;
+    }
+    else {
+        let neg= '-'
+        displayValue = neg.concat(displayValue);
+        display.textContent=displayValue;
+    }
+});
+
+const hundred = document.getElementById('divH');
+hundred.addEventListener('click', () => {
+    displayValue = parseFloat(displayValue)/ 100;
+    display.textContent = displayValue;
 });
 
 //when person clicks on function, reset internal display value
@@ -88,15 +114,16 @@ functions.forEach((operator)=> {
             holdValue = totalValue;
             totalValue = 0;
         }
-        if (operator.textContent === '=' ) {
+        if (operator.textContent === '=' && holdFunc !== '' && holdValue !=='') {
             // make the display show the final produce if user presses =
             // 
+            
             console.log(holdValue);
             console.log(func);
             display.textContent = operate(holdFunc, holdValue, display.textContent);
             displayValue = display.textContent;
             
-            holdValue=parseInt(displayValue);
+            holdValue=parseFloat(displayValue);
             totalValue = holdValue;
             holdValue= '';
             holdFunc = '';
@@ -112,7 +139,7 @@ functions.forEach((operator)=> {
             console.log(func + ' 2');
             display.textContent = operate(holdFunc, holdValue, display.textContent);
             displayValue = display.textContent;
-            holdValue=parseInt(displayValue);
+            holdValue=parseFloat(displayValue);
             holdFunc= func;
             totalValue = holdValue;   
             displayValue='';
@@ -121,7 +148,7 @@ functions.forEach((operator)=> {
         }
         if (func!=='=') holdFunc=func;
         
-        holdValue= parseInt(displayValue);
+        holdValue= parseFloat(displayValue);
         displayValue='';
         func = '';
         
@@ -131,7 +158,7 @@ functions.forEach((operator)=> {
 
         
         /*// Holding first value
-        let internalValue =parseInt(displayValue);
+        let internalValue =parseFloat(displayValue);
         
         // Holding function 
         func = operator.textContent;

@@ -62,6 +62,9 @@ const display = document.getElementById('display');
 buttons.forEach((button)=> {
     button.addEventListener('click', () => {
         //displayValue = parseFloat(button.textContent);
+        if (button.textContent==='.' && display.textContent.includes('.')) {
+            return;
+        } 
         displayValue += button.textContent;
         display.textContent=displayValue;
     });

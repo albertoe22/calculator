@@ -13,7 +13,7 @@ body {
 #display {
     flex:auto;
     padding: 15px 10px;
-    background-color: rgb(189, 189, 189);
+    background-color: rgb(230, 227, 227);
     color:black;
     text-align: end;
     font-size: 20px;
@@ -32,6 +32,7 @@ button {
     gap: 2px;
     border: solid 2px black;
     padding: 2px 2px;
+    background-color: white;
 }
 
 .wrapper button:nth-child(17) {
